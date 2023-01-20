@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import Button from './Button';
 
-function Navbar() {
+function Navbar({ category, setCategory }) {
   return (
     <HeaderWrapper>
       <NavWrapper>
         <h1>Develife</h1>
-        <NavMenu>Home</NavMenu>
-        <NavMenu>홈트레이닝</NavMenu>
-        <NavMenu>프로그래밍</NavMenu>
-        <NavMenu>IT용품리뷰</NavMenu>
+        <NavMenu onClick={() => setCategory('')}>Home</NavMenu>
+        <NavMenu onClick={() => setCategory('training')}>홈트레이닝</NavMenu>
+        <NavMenu onClick={() => setCategory('programing')}>프로그래밍</NavMenu>
+        <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
       </NavWrapper>
       <AuthWrapper>
         <Button width="90px" height="35px">
@@ -51,12 +51,5 @@ const NavMenu = styled.nav`
     font-weight: 700;
   }
 `;
-const AuthBtn = styled.button`
-  width: 90px;
-  height: 35px;
-  border-radius: 10px;
-  border: none;
-  background-color: darkgray;
-  color: #fff;
-`;
+
 export default Navbar;

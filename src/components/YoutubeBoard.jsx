@@ -28,7 +28,6 @@ const YoutubeList = styled.div`
 `;
 const YoutubeBox = styled.div`
   display: inline-block;
-
   // 유튜브 들어오면 지워주기
   height: 250px;
   border: 1px solid black;
