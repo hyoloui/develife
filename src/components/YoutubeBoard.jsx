@@ -1,13 +1,20 @@
 import styled from '@emotion/styled';
 
 function YoutubeBoard() {
+  const clickImg = (id) => {
+    console.log(`${id}`);
+    // router 연결 시 detail page 이동
+    // 이동 시 params이용 id 전달
+  };
   return (
     <YoutubeList>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
+      <YoutubeBox>
+        <YoutubeImg
+          src="https://i.ytimg.com/vi/XJ7M6Ztb0yE/mqdefault.jpg"
+          alt="title 넣기"
+          onClick={() => clickImg('HI')}
+        />
+      </YoutubeBox>
       <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
       <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
       <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
@@ -27,10 +34,11 @@ const YoutubeList = styled.div`
   grid-gap: 35px;
 `;
 const YoutubeBox = styled.div`
-  display: inline-block;
   // 유튜브 들어오면 지워주기
-  height: 250px;
-  border: 1px solid black;
   background-color: #ccc;
   //
+`;
+const YoutubeImg = styled.img`
+  width: 100%;
+  cursor: pointer;
 `;
