@@ -1,15 +1,22 @@
+import styled from '@emotion/styled';
+import { useState } from 'react';
+import CateContent from './components/CateContent';
 import Navbar from './components/Navbar';
-import Category from './pages/Category';
 import Main from './pages/Main';
 
 function App() {
+  const [category, setCategory] = useState('');
   return (
-    <div className="App">
-      <Navbar />
+    <PageWrpper>
+      <Navbar category={category} setCategory={setCategory} />
+      {category ? <CateContent /> : null}
       <Main />
-      <Category />
-    </div>
+    </PageWrpper>
   );
 }
 
+const PageWrpper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 export default App;
