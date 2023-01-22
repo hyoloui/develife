@@ -3,24 +3,26 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authService } from '../firebase';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const auth = authService;
+  const navigate = useNavigate();
+
   const loginEmail = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log('로그인 성공');
+        alert('로그인 성공');
+        navigate('/', { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log('로그인 실패');
+        alert('로그인 실패');
       });
   };
 
