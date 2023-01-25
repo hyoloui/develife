@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../firebase';
 
 function Navbar({ setCategory }) {
   const navigate = useNavigate();
+  console.log(authService.currentUser);
   return (
     <HeaderWrapper>
       <NavWrapper>
@@ -22,24 +24,36 @@ function Navbar({ setCategory }) {
         </NavMenu>
       </NavWrapper>
       <AuthWrapper>
-        <Button
-          onClick={() => {
-            navigate('/login');
-          }}
-          width="90px"
-          height="35px"
-        >
-          로그인
-        </Button>
-        <Button
-          onClick={() => {
-            navigate('/signup');
-          }}
-          width="90px"
-          height="35px"
-        >
-          회원가입
-        </Button>
+        {authService.currentUser ? (
+          <Button
+            onClick={() => authService.signOut()}
+            width="90px"
+            height="35px"
+          >
+            로그아웃
+          </Button>
+        ) : (
+          <>
+            <Button
+              onClick={() => {
+                navigate('/login');
+              }}
+              width="90px"
+              height="35px"
+            >
+              로그인
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/signup');
+              }}
+              width="90px"
+              height="35px"
+            >
+              회원가입
+            </Button>
+          </>
+        )}
       </AuthWrapper>
     </HeaderWrapper>
   );

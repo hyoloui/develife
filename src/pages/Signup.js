@@ -172,7 +172,7 @@ const Signup = () => {
             <p> 메인 페이지로 이동하겠습니다. </p>
             <button
               onClick={() => {
-                navigate('/main', { replace: true });
+                navigate('/', { replace: true });
               }}
             >
               확인
