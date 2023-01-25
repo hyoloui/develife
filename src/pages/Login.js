@@ -14,6 +14,8 @@ function Login() {
   const auth = authService;
   const navigate = useNavigate();
 
+  const [modal, setModal] = useState(false);
+
   const email_validation = new RegExp(
     /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
   );
@@ -24,12 +26,10 @@ function Login() {
         // Signed in
         const user = userCredential.user;
         // ...
-        alert('로그인 성공');
         navigate('/', { replace: true });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        alert('로그인 실패');
+        setModal(true);
       });
   };
 
@@ -103,6 +103,28 @@ function Login() {
           로그인
         </LoginButton>
       </div>
+      {modal && (
+        <Overlay>
+          <ModalContent>
+            <h3> 로그인 실패</h3>
+            <p> 아이디와 비밀번호를 확인해보세요. </p>
+            <button
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              확인
+            </button>
+            <button
+              onClick={() => {
+                navigate('/signup', { replace: true });
+              }}
+            >
+              회원가입
+            </button>
+          </ModalContent>
+        </Overlay>
+      )}
     </Container>
   );
 }
@@ -208,6 +230,43 @@ const InputPasswordContainer = styled(InputContainer)`
 const CheckBox = styled.div`
   width: 30px;
   padding-right: 10px;
+`;
+
+const ModalContent = styled.div`
+  width: 300px;
+  height: 110px;
+
+  background-color: white;
+  border-radius: 20px;
+  color: black;
+
+  padding: 20px;
+  border: 2px gray solid;
+
+  align-items: center;
+  position: absolute;
+
+  button {
+    margin: 10px;
+    background-color: white;
+    border: 0px;
+    border-radius: 8px;
+    width: 100px;
+
+    :hover {
+      background-color: beige;
+    }
+  }
+`;
+
+const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(49, 49, 49, 0.8);
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
 `;
 
 export default Login;

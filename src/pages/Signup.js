@@ -1,34 +1,47 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import Modal from 'react-modal';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { authService } from '../firebase';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerPasswordCheck, setRegisterPasswordCheck] = useState('');
+  const [registerNickname, setRegisterNickname] = useState('');
   const [isValidateEmail, setIsValidateEmail] = useState(false);
   const [isValidatePassword, setIsValidatePassword] = useState(false);
+
+  const [modal, setModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const email_validation = new RegExp(
     /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
   );
 
-  const register = async () => {
-    try {
-      await createUserWithEmailAndPassword(
-        authService,
-        registerEmail,
-        registerPassword,
-      );
-      setRegisterEmail('');
-      setRegisterPassword('');
-    } catch (err) {
-      console.log(err.code);
-    }
+  const signUp = async (e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(
+      authService,
+      registerEmail,
+      registerPassword,
+    )
+      .then((result) => {
+        updateProfile(result.user, {
+          displayName: registerNickname,
+        });
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+    setRegisterEmail('');
+    setRegisterPassword('');
+    setRegisterPasswordCheck('');
+    setRegisterNickname('');
+    setModal(true);
   };
   return (
     <Container>
@@ -36,7 +49,7 @@ const Signup = () => {
         <div className="containerTop" style={{ marginBottom: '30px' }}>
           <h3> 회원 가입</h3>
         </div>
-        <form>
+        <form onSubmit={signUp}>
           <div className="inputContainer">
             <label className="labelInput" htmlFor="inputId">
               아이디
@@ -69,7 +82,23 @@ const Signup = () => {
             <label className="labelInput" htmlFor="inputNickname">
               닉네임
             </label>
-            <input id="inputNickname" placeholder="닉네임 입력해주세요." />
+            <input
+              value={registerNickname}
+              id="inputNickname"
+              onChange={(e) => {
+                setRegisterNickname(e.target.value);
+              }}
+              placeholder="닉네임 입력해주세요."
+            />
+            <CheckBox>
+              {registerNickname ? (
+                registerNickname.length > 0 ? (
+                  <CheckCircleOutlined style={{ color: 'green' }} />
+                ) : (
+                  <CloseCircleOutlined style={{ color: 'red' }} />
+                )
+              ) : null}
+            </CheckBox>
           </div>
           <div className="inputContainer">
             <label className="labelInput" htmlFor="inputPw">
@@ -130,12 +159,34 @@ const Signup = () => {
             disabled={
               !isValidateEmail || !(registerPasswordCheck === registerPassword)
             }
-            onClick={register}
+            type="submit"
           >
             회원가입
           </SignButton>
         </form>
       </div>
+      {modal && (
+        <Overlay>
+          <ModalContent>
+            <h3> 회원가입 완료</h3>
+            <p> 로그인 페이지로 이동하겠습니다. </p>
+            <button
+              onClick={() => {
+                navigate('/login', { replace: true });
+              }}
+            >
+              확인
+            </button>
+            <button
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              취소
+            </button>
+          </ModalContent>
+        </Overlay>
+      )}
     </Container>
   );
 };
@@ -178,6 +229,43 @@ const Container = styled.div`
     border-radius: 10px;
     padding-left: 10px;
   }
+`;
+
+const ModalContent = styled.div`
+  width: 300px;
+  height: 110px;
+
+  background-color: white;
+  border-radius: 20px;
+  color: black;
+
+  padding: 20px;
+  border: 2px gray solid;
+
+  align-items: center;
+  position: absolute;
+
+  button {
+    margin: 10px;
+    background-color: white;
+    border: 0px;
+    border-radius: 8px;
+    width: 100px;
+
+    :hover {
+      background-color: beige;
+    }
+  }
+`;
+
+const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(49, 49, 49, 0.8);
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
 `;
 
 const SignButton = styled.button`
