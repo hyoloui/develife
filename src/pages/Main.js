@@ -10,8 +10,8 @@ function Main() {
   return (
     <MainWrapper>
       <Navbar category={category} setCategory={setCategory} />
-      {category ? <CateContent /> : null}
-      <YoutubeBoard></YoutubeBoard>
+      {category ? <CateContent category={category} /> : null}
+      <YoutubeBoard category={category}></YoutubeBoard>
     </MainWrapper>
   );
 }

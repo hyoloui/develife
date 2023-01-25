@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-const CateContent = () => {
+const CateContent = ({ category }) => {
   return (
     <CateMainWarpper>
       <YoutubeBox>인기영상</YoutubeBox>

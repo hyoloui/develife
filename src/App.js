@@ -5,10 +5,13 @@ import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './app.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <div className="App">
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}></Route>
@@ -18,7 +21,7 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </QueryClientProvider>
   );
 }
 

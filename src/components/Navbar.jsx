@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import Button from './Button';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar({ category, setCategory }) {
+  const navigate = useNavigate();
   return (
     <HeaderWrapper>
       <NavWrapper>
@@ -12,10 +14,22 @@ function Navbar({ category, setCategory }) {
         <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
       </NavWrapper>
       <AuthWrapper>
-        <Button width="90px" height="35px">
+        <Button
+          onClick={() => {
+            navigate('/login');
+          }}
+          width="90px"
+          height="35px"
+        >
           로그인
         </Button>
-        <Button width="90px" height="35px">
+        <Button
+          onClick={() => {
+            navigate('/signup');
+          }}
+          width="90px"
+          height="35px"
+        >
           회원가입
         </Button>
       </AuthWrapper>
@@ -44,7 +58,6 @@ const AuthWrapper = styled.div`
 const NavMenu = styled.nav`
   padding: 10px;
   display: flex;
-  width: 10%;
   justify-content: center;
   &:hover {
     border-bottom: 3px solid black;

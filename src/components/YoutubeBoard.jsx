@@ -1,27 +1,88 @@
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
+import { getAll, getHomeTrainning, getProgramming, getItItem } from '../api';
 
-function YoutubeBoard() {
+function YoutubeBoard({ category }) {
+  const { data: AllPlayList, isLoading: isLoadingAP } = useQuery('All', getAll);
+  const { data: HometrainningPlayList, isLoading: isLoadingHP } = useQuery(
+    'HomeTrainning',
+    getHomeTrainning,
+  );
+  const { data: ProgrammingPlayList, isLoading: isLoadingPG } = useQuery(
+    'Programming',
+    getProgramming,
+  );
+  const { data: ItItemPlayList, isLoading: isLoadingIT } = useQuery(
+    'ItItem',
+    getItItem,
+  );
+
+  const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
+
   const clickImg = (id) => {
-    console.log(`${id}`);
+    console.log(id);
     // router 연결 시 detail page 이동
     // 이동 시 params이용 id 전달
   };
+
+  if (isLoading) {
+    return <h3>로딩중 입니다.</h3>;
+  }
+
+  if (category === 'training') {
+    return (
+      <YoutubeList>
+        {HometrainningPlayList.items.map((item) => (
+          <YoutubeBox key={item.id}>
+            <YoutubeImg
+              src={`${item.snippet.thumbnails.high.url}`}
+              alt={`${item.snippet.title}`}
+              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+            />
+          </YoutubeBox>
+        ))}
+      </YoutubeList>
+    );
+  } else if (category === 'programing') {
+    return (
+      <YoutubeList>
+        {ProgrammingPlayList.items.map((item) => (
+          <YoutubeBox key={item.id}>
+            <YoutubeImg
+              src={`${item.snippet.thumbnails.high.url}`}
+              alt={`${item.snippet.title}`}
+              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+            />
+          </YoutubeBox>
+        ))}
+      </YoutubeList>
+    );
+  } else if (category === 'review') {
+    return (
+      <YoutubeList>
+        {ItItemPlayList.items.map((item) => (
+          <YoutubeBox key={item.id}>
+            <YoutubeImg
+              src={`${item.snippet.thumbnails.high.url}`}
+              alt={`${item.snippet.title}`}
+              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+            />
+          </YoutubeBox>
+        ))}
+      </YoutubeList>
+    );
+  }
   return (
     <YoutubeList>
-      <YoutubeBox>
-        <YoutubeImg
-          src="https://i.ytimg.com/vi/XJ7M6Ztb0yE/mqdefault.jpg"
-          alt="title 넣기"
-          onClick={() => clickImg('HI')}
-        />
-      </YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
-      <YoutubeBox>YoutubeBoard 컴포넌트</YoutubeBox>
+      {AllPlayList.items.map((item) => (
+        <YoutubeBox key={item.id}>
+          <YoutubeImg
+            src={`${item.snippet.thumbnails.high.url}`}
+            alt={`${item.snippet.title}`}
+            onClick={() => clickImg(item.snippet.resourceId.videoId)}
+          />
+        </YoutubeBox>
+      ))}
     </YoutubeList>
   );
 }
