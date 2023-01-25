@@ -1,22 +1,25 @@
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import CateContent from './components/CateContent';
-import Navbar from './components/Navbar';
 import Main from './pages/Main';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import NotFound from './pages/NotFound';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import './app.css';
 
 function App() {
-  const [category, setCategory] = useState('');
   return (
-    <PageWrpper>
-      <Navbar category={category} setCategory={setCategory} />
-      {category ? <CateContent /> : null}
-      <Main />
-    </PageWrpper>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
-const PageWrpper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
 export default App;
