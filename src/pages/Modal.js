@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
+import { authService } from '../firebase';
 
 const Modal = ({ closeReleasePopup }) => {
-  const [contentValue, setContentValue] = useState('');
-
-  const newcontent = {
-    text: contentValue,
-    isEdit: false,
-    createdAt: Date.now(),
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  });
 
   return (
     <>
@@ -29,12 +33,7 @@ const Modal = ({ closeReleasePopup }) => {
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
               <ContentsList />
-
-              <AddForm
-                newcontent={newcontent}
-                contentValue={contentValue}
-                setContentValue={setContentValue}
-              />
+              {isLoggedIn ? <AddForm /> : null}
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>

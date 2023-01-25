@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../firebase';
 
 function Navbar({ category, setCategory }) {
+  //로그아웃
+  const onLogOutClick = () => {
+    authService.signOut();
+    console.log('로그아웃했어요');
+  };
+
   const navigate = useNavigate();
   return (
     <HeaderWrapper>
@@ -14,6 +21,7 @@ function Navbar({ category, setCategory }) {
         <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
       </NavWrapper>
       <AuthWrapper>
+        <button onClick={() => onLogOutClick()}>로그아웃</button>
         <Button
           onClick={() => {
             navigate('/login');
