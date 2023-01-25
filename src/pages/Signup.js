@@ -169,10 +169,10 @@ const Signup = () => {
         <Overlay>
           <ModalContent>
             <h3> 회원가입 완료</h3>
-            <p> 로그인 페이지로 이동하겠습니다. </p>
+            <p> 메인 페이지로 이동하겠습니다. </p>
             <button
               onClick={() => {
-                navigate('/login', { replace: true });
+                navigate('/main', { replace: true });
               }}
             >
               확인
