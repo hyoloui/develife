@@ -1,7 +1,15 @@
-function Button() {
-  return (
-      <h1>Button 컴포넌트</h1>
-  );
-}
+import styled from '@emotion/styled';
 
-export default Button;
+export default styled.button`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  font-size: ${(props) => props.fontSize};
+  background-color: darkgray;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`;
