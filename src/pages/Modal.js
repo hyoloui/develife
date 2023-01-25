@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 
-const Modal = ({ closeReleasePopup }) => {
+const Modal = ({ modalPlayId, closeReleasePopup }) => {
   const [contentValue, setContentValue] = useState('');
 
   const newcontent = {
@@ -19,7 +19,17 @@ const Modal = ({ closeReleasePopup }) => {
         <CloseButton onClick={() => closeReleasePopup()}>X</CloseButton>
         <ModalContainer>
           <YoutubeBox>
-            <YoutubeContents>영상 여기!</YoutubeContents>
+            <YoutubeContents>
+              <iframe
+                id="ytplayer"
+                type="text/html"
+                width="720"
+                height="405"
+                src={`https://www.youtube.com/embed/${modalPlayId}`}
+                frameborder="0"
+                allowfullscreen
+              />
+            </YoutubeContents>
             <div>
               <YoutubeTitle>Title</YoutubeTitle>
               <ContentsText>상세내용</ContentsText>

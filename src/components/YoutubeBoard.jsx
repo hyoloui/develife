@@ -22,15 +22,18 @@ function YoutubeBoard({ category }) {
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
   const [releaseModal, setReleaseModal] = useState(false);
-
-  const closeReleasePopup = () => {
-    setReleaseModal(false);
-    document.body.style.overflow = 'unset';
-  };
+  const [modalPlayId, setModalPlayId] = useState('');
 
   const clickImg = (id) => {
     setReleaseModal(true);
     document.body.style.overflow = 'hidden';
+    setModalPlayId(id);
+  };
+
+  const closeReleasePopup = () => {
+    setReleaseModal(false);
+    setModalPlayId('');
+    document.body.style.overflow = 'unset';
   };
 
   if (isLoading) {
@@ -45,6 +48,11 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${HometrainningPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${HometrainningPlayList.items[0].snippet.title}`}
+              onClick={() =>
+                clickImg(
+                  HometrainningPlayList.items[0].snippet.resourceId.videoId,
+                )
+              }
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -61,7 +69,12 @@ function YoutubeBoard({ category }) {
                 />
               </YoutubeBox>
             ))}
-          {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
+          {releaseModal && (
+            <Modal
+              modalPlayId={modalPlayId}
+              closeReleasePopup={closeReleasePopup}
+            />
+          )}
         </YoutubeList>
       </>
     );
@@ -73,6 +86,11 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${ProgrammingPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${ProgrammingPlayList.items[0].snippet.title}`}
+              onClick={() =>
+                clickImg(
+                  ProgrammingPlayList.items[0].snippet.resourceId.videoId,
+                )
+              }
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -89,7 +107,12 @@ function YoutubeBoard({ category }) {
                 />
               </YoutubeBox>
             ))}
-          {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
+          {releaseModal && (
+            <Modal
+              modalPlayId={modalPlayId}
+              closeReleasePopup={closeReleasePopup}
+            />
+          )}
         </YoutubeList>
       </>
     );
@@ -101,6 +124,9 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${ItItemPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${ItItemPlayList.items[0].snippet.title}`}
+              onClick={() =>
+                clickImg(ItItemPlayList.items[0].snippet.resourceId.videoId)
+              }
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -117,7 +143,12 @@ function YoutubeBoard({ category }) {
                 />
               </YoutubeBox>
             ))}
-          {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
+          {releaseModal && (
+            <Modal
+              modalPlayId={modalPlayId}
+              closeReleasePopup={closeReleasePopup}
+            />
+          )}
         </YoutubeList>
       </>
     );
@@ -133,7 +164,7 @@ function YoutubeBoard({ category }) {
           />
         </YoutubeBox>
       ))}
-      {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
+      {releaseModal && <Modal modalPlayId={modalPlayId} closeReleasePopup={closeReleasePopup} />}
     </YoutubeList>
   );
 }
