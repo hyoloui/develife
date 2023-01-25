@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
+import ContentsList from '../components/ContentsList';
 
 const Modal = ({ closeReleasePopup }) => {
+  const [contentValue, setContentValue] = useState('');
+
+  const newcontent = {
+    text: contentValue,
+    isEdit: false,
+    createdAt: Date.now(),
+  };
+
   return (
     <>
       <Layer onClick={() => closeReleasePopup()}></Layer>
@@ -19,17 +28,13 @@ const Modal = ({ closeReleasePopup }) => {
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsScroll>
-                <ContentsItem>
-                  <ContentsId>닉네임</ContentsId>
-                  <ContentsText>contents</ContentsText>
-                </ContentsItem>
-                <ContentsItem>
-                  <ContentsId>닉네임2</ContentsId>
-                  <ContentsText>contents2</ContentsText>
-                </ContentsItem>
-              </ContentsScroll>
-              <AddForm />
+              <ContentsList />
+
+              <AddForm
+                newcontent={newcontent}
+                contentValue={contentValue}
+                setContentValue={setContentValue}
+              />
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>
@@ -93,26 +98,9 @@ const ContentsTitle = styled.div`
   height: 18%;
 `;
 const ContentsBox = styled.div`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   height: 95%;
-`;
-const ContentsScroll = styled.div`
-  padding: 5%;
-  height: 65%;
-  width: 80%;
-  margin: auto;
-  flex-direction: row;
-  justify-content: space-around;
-  border-radius: 4px;
-  overflow: auto;
-`;
-const ContentsItem = styled.div`
-  margin-bottom: 12px;
-`;
-const ContentsId = styled.div`
-  font-weight: 600;
-  margin-bottom: 10px;
 `;
 const ContentsText = styled.div`
   border-radius: 8px;
