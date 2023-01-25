@@ -7,18 +7,6 @@ import CateContent from '../components/CateContent';
 
 function Main() {
   const [category, setCategory] = useState('');
-  const [releaseModal, setReleaseModal] = useState(false);
-
-  const releasePopup = () => {
-    setReleaseModal(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeReleasePopup = () => {
-    setReleaseModal(false);
-    document.body.style.overflow = 'unset';
-  };
-
 
   return (
     <MainWrapper>

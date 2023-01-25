@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { getAll, getHomeTrainning, getProgramming, getItItem } from '../api';
+import { useState } from 'react';
+import Modal from '../pages/Modal';
 
 function YoutubeBoard({ category }) {
   const { data: AllPlayList, isLoading: isLoadingAP } = useQuery('All', getAll);
@@ -19,8 +21,16 @@ function YoutubeBoard({ category }) {
 
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
+  const [releaseModal, setReleaseModal] = useState(false);
+
+  const closeReleasePopup = () => {
+    setReleaseModal(false);
+    document.body.style.overflow = 'unset';
+  };
+
   const clickImg = (id) => {
-    console.log(id);
+    setReleaseModal(true);
+    document.body.style.overflow = 'hidden';
     // router 연결 시 detail page 이동
     // 이동 시 params이용 id 전달
   };
@@ -41,6 +51,7 @@ function YoutubeBoard({ category }) {
             />
           </YoutubeBox>
         ))}
+        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   } else if (category === 'programing') {
@@ -55,6 +66,7 @@ function YoutubeBoard({ category }) {
             />
           </YoutubeBox>
         ))}
+        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   } else if (category === 'review') {
@@ -69,6 +81,7 @@ function YoutubeBoard({ category }) {
             />
           </YoutubeBox>
         ))}
+        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   }
@@ -83,6 +96,7 @@ function YoutubeBoard({ category }) {
           />
         </YoutubeBox>
       ))}
+      {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
     </YoutubeList>
   );
 }
