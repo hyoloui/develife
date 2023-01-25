@@ -13,8 +13,6 @@ function Main() {
       <Navbar category={category} setCategory={setCategory} />
       {category ? <CateContent category={category} /> : null}
       <YoutubeBoard category={category}></YoutubeBoard>
-      <button onClick={() => releasePopup()}>모달 바로 가기</button>
-      {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
     </MainWrapper>
   );
 }
