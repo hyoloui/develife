@@ -7,6 +7,7 @@ import CateContent from '../components/CateContent';
 function Main() {
   const [category, setCategory] = useState('');
 
+
   return (
     <MainWrapper>
       <Navbar category={category} setCategory={setCategory} />
