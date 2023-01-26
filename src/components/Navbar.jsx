@@ -11,65 +11,129 @@ function Navbar({ category, setCategory }) {
   };
 
   const navigate = useNavigate();
+
+  const nowCategoryStyle = {
+    borderBottom: '3px solid #fff',
+    marginBottom: 0,
+    fontWeight: 700,
+  };
+
+
+  const onLogout = () => {
+    authService
+      .signOut()
+      .then(() => {
+        console.log('👉👉  로그아웃 후');
+        navigate('/');
+      }) // logout successful
+      .catch((error) => {
+        console.log(error);
+      }); // logout fail
+  };
+
+
   return (
     <HeaderWrapper>
       <NavWrapper>
-        <h1>Develife</h1>
-        <NavMenu onClick={() => setCategory('')}>Home</NavMenu>
-        <NavMenu onClick={() => setCategory('training')}>홈트레이닝</NavMenu>
-        <NavMenu onClick={() => setCategory('programing')}>프로그래밍</NavMenu>
-        <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
+        <Title>Develife</Title>
+        <NavMenuList>
+          <NavMenu
+            onClick={() => setCategory('')}
+            style={category === '' ? nowCategoryStyle : null}
+          >
+            Home
+          </NavMenu>
+          <NavMenu
+            onClick={() => setCategory('training')}
+            style={category === 'training' ? nowCategoryStyle : null}
+          >
+            홈트레이닝
+          </NavMenu>
+          <NavMenu
+            onClick={() => setCategory('programing')}
+            style={category === 'programing' ? nowCategoryStyle : null}
+          >
+            프로그래밍
+          </NavMenu>
+          <NavMenu
+            onClick={() => setCategory('review')}
+            style={category === 'review' ? nowCategoryStyle : null}
+          >
+            IT용품리뷰
+          </NavMenu>
+        </NavMenuList>
       </NavWrapper>
       <AuthWrapper>
-        <button onClick={() => onLogOutClick()}>로그아웃</button>
-        <Button
-          onClick={() => {
-            navigate('/login');
-          }}
-          width="90px"
-          height="35px"
-        >
-          로그인
-        </Button>
-        <Button
-          onClick={() => {
-            navigate('/signup');
-          }}
-          width="90px"
-          height="35px"
-        >
-          회원가입
-        </Button>
+        {authService.currentUser ? (
+          <Button onClick={() => onLogout()} width="90px" height="35px">
+            로그아웃
+          </Button>
+        ) : (
+          <>
+            <Button
+              onClick={() => {
+                navigate('/login');
+              }}
+              width="90px"
+              height="35px"
+            >
+              로그인
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/signup');
+              }}
+              width="90px"
+              height="35px"
+            >
+              회원가입
+            </Button>
+          </>
+        )}
       </AuthWrapper>
     </HeaderWrapper>
   );
 }
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
+const HeaderWrapper = styled.nav`
   margin: auto;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  color: #fff;
 `;
 const NavWrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 30px;
   font-size: 18px;
-  width: 70%;
 `;
 const AuthWrapper = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 15px;
 `;
-const NavMenu = styled.nav`
+const Title = styled.h1`
+  width: 15%;
+`;
+const NavMenuList = styled.ul`
+  padding-left: 5%;
+  display: flex;
+`;
+const NavMenu = styled.li`
+  width: 150px;
   padding: 10px;
   display: flex;
   justify-content: center;
+  text-align: center;
+  margin-bottom: 3px;
   &:hover {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #fff;
+    margin-bottom: 0;
     font-weight: 700;
+    cursor: pointer;
   }
 `;
 

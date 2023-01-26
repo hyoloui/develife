@@ -4,7 +4,7 @@ import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
 
-const Modal = ({ closeReleasePopup, youtubeInfo }) => {
+const Modal = ({ closeReleasePopup, modalPlayItem }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -24,21 +24,18 @@ const Modal = ({ closeReleasePopup, youtubeInfo }) => {
         <ModalContainer>
           <YoutubeBox>
             <YoutubeContents>
-              <iframe
+              <YoutubePlayer
                 id="ytplayer"
                 type="text/html"
-                width="720"
-                height="405"
-                src={`https://www.youtube.com/embed/${youtubeInfo.resourceId.videoId}`}
-                frameBorder="0"
-                allowFullScreen
-                title="main"
+                src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
               />
             </YoutubeContents>
-            <div>
-              <YoutubeTitle> {youtubeInfo.title} </YoutubeTitle>
-              <ContentsText>{youtubeInfo.description}</ContentsText>
-            </div>
+            <PlayItemContents>
+              <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
+              <YoutubeDescription>
+                {modalPlayItem.description}
+              </YoutubeDescription>
+            </PlayItemContents>
           </YoutubeBox>
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
@@ -112,13 +109,6 @@ const ContentsBox = styled.div`
   justify-content: space-between;
   height: 95%;
 `;
-const ContentsText = styled.div`
-  border-radius: 8px;
-  background-color: #fff;
-  padding-left: 12px;
-  height: 16vh;
-  overflow: auto;
-`;
 const CloseButton = styled.button`
   position: absolute;
   font-size: 24px;
@@ -136,10 +126,23 @@ const YoutubeContents = styled.div`
   height: 66%;
   background-color: aliceblue;
   margin-bottom: 1vh;
+
 `;
 const YoutubeTitle = styled.p`
-  font-weight: 800;
+  font-weight: 700;
   font-size: 24px;
   overflow-wrap: break-word;
   margin-bottom: 1vh;
+
+`;
+const YoutubePlayer = styled.iframe`
+  height: 40vh;
+  background-color: #111;
+`;
+const PlayItemContents = styled.div`
+  height: 22vh;
+  overflow: auto;
+`;
+const YoutubeDescription = styled.div`
+  overflow-wrap: break-word;
 `;
