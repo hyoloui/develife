@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { IoChevronDownCircle, IoCut, IoCloseCircle } from 'react-icons/io5';
 import { useState } from 'react';
-import { dbService } from '../firebase';
+import { authService, dbService } from '../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 export default function Content({ item, contents }) {
@@ -49,13 +49,26 @@ export default function Content({ item, contents }) {
     setEditContentValue(item.text);
   };
 
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  });
+
+  //authService.currentUser.uid === item.userId && (드랍박스 보이고)
+
   return (
     <ContentsItem key={item.id}>
       <ContentsIdContainer>
         {item.isEdit ? (
           <>
             <>
-              <ContentsId>{item.createdAt}</ContentsId>
+              <ContentsId>{item?.userName}</ContentsId>
               <button
                 onClick={() => {
                   EditContent(item.id);
@@ -84,13 +97,17 @@ export default function Content({ item, contents }) {
           </>
         ) : (
           <>
-            <ContentsId>{item.createdAt}</ContentsId>
-            <IoChevronDownCircle
-              onClick={() => {
-                setDropDown(!dropDown);
-              }}
-              size={24}
-            />
+            <ContentsId>{item?.userName}</ContentsId>
+            {/*(if(authService.currentUser.uid === item.userId)*/}
+            {isLoggedIn && authService.currentUser.uid === item.userId ? (
+              <IoChevronDownCircle
+                onClick={() => {
+                  setDropDown(!dropDown);
+                }}
+                size={24}
+              />
+            ) : null}
+
             {dropDown === true ? (
               <DropDownBox>
                 <IoCut

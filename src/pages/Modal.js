@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
+import { authService } from '../firebase';
 
-const Modal = ({ modalPlayItem, closeReleasePopup }) => {
-  const [contentValue, setContentValue] = useState('');
-
-  const newcontent = {
-    text: contentValue,
-    isEdit: false,
-    createdAt: Date.now(),
-  };
+const Modal = ({ closeReleasePopup, modalPlayItem }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  });
 
   return (
     <>
@@ -36,13 +40,8 @@ const Modal = ({ modalPlayItem, closeReleasePopup }) => {
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsList />
-
-              <AddForm
-                newcontent={newcontent}
-                contentValue={contentValue}
-                setContentValue={setContentValue}
-              />
+              <ContentsList youtubeInfo={youtubeInfo} />
+              {isLoggedIn ? <AddForm youtubeInfo={youtubeInfo} /> : null}
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>
@@ -123,13 +122,18 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 const YoutubeContents = styled.div`
-  margin-bottom: 10px;
+  width: 100%;
+  height: 66%;
+  background-color: aliceblue;
+  margin-bottom: 1vh;
+
 `;
 const YoutubeTitle = styled.p`
   font-weight: 700;
   font-size: 24px;
   overflow-wrap: break-word;
-  margin-bottom: 10px;
+  margin-bottom: 1vh;
+
 `;
 const YoutubePlayer = styled.iframe`
   height: 40vh;

@@ -4,6 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../firebase';
 
 function Navbar({ category, setCategory }) {
+  //로그아웃
+  const onLogOutClick = () => {
+    authService.signOut();
+    console.log('로그아웃했어요');
+  };
+
   const navigate = useNavigate();
 
   const nowCategoryStyle = {

@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
-import { dbService } from '../firebase';
-export default function AddForm({ newcontent, contentValue, setContentValue }) {
+import { authService, dbService } from '../firebase';
+
+export default function AddForm({ youtubeInfo }) {
+  const [contentValue, setContentValue] = useState('');
+
+  const newcontent = {
+    text: contentValue,
+    userName: authService.currentUser.displayName,
+    userId: authService.currentUser.uid,
+    isEdit: false,
+    boardId: youtubeInfo.resourceId.videoId,
+    createdAt: Date.now(),
+  };
+
   // Content add하기
   const addContent = async (e) => {
     // 새로고침 방지
@@ -18,6 +30,7 @@ export default function AddForm({ newcontent, contentValue, setContentValue }) {
 
     await addDoc(collection(dbService, 'test'), newcontent);
     setContentValue('');
+    console.log('addid', newcontent);
   };
 
   return (
