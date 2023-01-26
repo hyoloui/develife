@@ -14,6 +14,15 @@ const YoutubeContent = ({ item, clickImg }) => {
 };
 const YoutubeBox = styled.div`
   background-color: #ccc;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 74%;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const YoutubeImg = styled.img`
   width: 100%;
