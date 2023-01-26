@@ -3,6 +3,10 @@ import { useQuery } from 'react-query';
 import { getAll, getHomeTrainning, getProgramming, getItItem } from '../api';
 import { useState } from 'react';
 import Modal from '../pages/Modal';
+import YoutubeContent from './YoutubeContent';
+import Training from './Training';
+import Programing from './Programing';
+import ItItem from './ItItem';
 
 function YoutubeBoard({ category }) {
   const { data: AllPlayList, isLoading: isLoadingAP } = useQuery('All', getAll);
@@ -22,17 +26,17 @@ function YoutubeBoard({ category }) {
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
   const [releaseModal, setReleaseModal] = useState(false);
-  const [modalPlayId, setModalPlayId] = useState('');
+  const [modalPlayItem, setModalPlayItem] = useState('');
 
-  const clickImg = (id) => {
+  const clickImg = (snippet) => {
     setReleaseModal(true);
     document.body.style.overflow = 'hidden';
-    setModalPlayId(id);
+    setModalPlayItem(snippet);
   };
 
   const closeReleasePopup = () => {
     setReleaseModal(false);
-    setModalPlayId('');
+    setModalPlayItem('');
     document.body.style.overflow = 'unset';
   };
 
@@ -42,129 +46,46 @@ function YoutubeBoard({ category }) {
 
   if (category === 'training') {
     return (
-      <>
-        <CateMainWarpper>
-          <YoutubeBox>
-            <YoutubeImg
-              src={`${HometrainningPlayList.items[0].snippet.thumbnails.maxres.url}`}
-              alt={`${HometrainningPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(
-                  HometrainningPlayList.items[0].snippet.resourceId.videoId,
-                )
-              }
-            />
-          </YoutubeBox>
-          <DescriptionBox>카테고리 설명</DescriptionBox>
-        </CateMainWarpper>
-        <YoutubeList>
-          {HometrainningPlayList.items
-            .filter((item) => item.id !== HometrainningPlayList.items[0].id)
-            .map((item) => (
-              <YoutubeBox key={item.id}>
-                <YoutubeImg
-                  src={`${item.snippet.thumbnails.high.url}`}
-                  alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
-                />
-              </YoutubeBox>
-            ))}
-          {releaseModal && (
-            <Modal
-              modalPlayId={modalPlayId}
-              closeReleasePopup={closeReleasePopup}
-            />
-          )}
-        </YoutubeList>
-      </>
+      <Training
+        HometrainningPlayList={HometrainningPlayList}
+        clickImg={clickImg}
+        releaseModal={releaseModal}
+        closeReleasePopup={closeReleasePopup}
+        modalPlayItem={modalPlayItem}
+      />
     );
   } else if (category === 'programing') {
     return (
-      <>
-        <CateMainWarpper>
-          <YoutubeBox>
-            <YoutubeImg
-              src={`${ProgrammingPlayList.items[0].snippet.thumbnails.maxres.url}`}
-              alt={`${ProgrammingPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(
-                  ProgrammingPlayList.items[0].snippet.resourceId.videoId,
-                )
-              }
-            />
-          </YoutubeBox>
-          <DescriptionBox>카테고리 설명</DescriptionBox>
-        </CateMainWarpper>
-        <YoutubeList>
-          {ProgrammingPlayList.items
-            .filter((item) => item.id !== ProgrammingPlayList.items[0].id)
-            .map((item) => (
-              <YoutubeBox key={item.id}>
-                <YoutubeImg
-                  src={`${item.snippet.thumbnails.high.url}`}
-                  alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
-                />
-              </YoutubeBox>
-            ))}
-          {releaseModal && (
-            <Modal
-              modalPlayId={modalPlayId}
-              closeReleasePopup={closeReleasePopup}
-            />
-          )}
-        </YoutubeList>
-      </>
+      <Programing
+        ProgrammingPlayList={ProgrammingPlayList}
+        clickImg={clickImg}
+        releaseModal={releaseModal}
+        closeReleasePopup={closeReleasePopup}
+        modalPlayItem={modalPlayItem}
+      />
     );
   } else if (category === 'review') {
     return (
-      <>
-        <CateMainWarpper>
-          <YoutubeBox>
-            <YoutubeImg
-              src={`${ItItemPlayList.items[0].snippet.thumbnails.maxres.url}`}
-              alt={`${ItItemPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(ItItemPlayList.items[0].snippet.resourceId.videoId)
-              }
-            />
-          </YoutubeBox>
-          <DescriptionBox>카테고리 설명</DescriptionBox>
-        </CateMainWarpper>
-        <YoutubeList>
-          {ItItemPlayList.items
-            .filter((item) => item.id !== ItItemPlayList.items[0].id)
-            .map((item) => (
-              <YoutubeBox key={item.id}>
-                <YoutubeImg
-                  src={`${item.snippet.thumbnails.high.url}`}
-                  alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
-                />
-              </YoutubeBox>
-            ))}
-          {releaseModal && (
-            <Modal
-              modalPlayId={modalPlayId}
-              closeReleasePopup={closeReleasePopup}
-            />
-          )}
-        </YoutubeList>
-      </>
+      <ItItem
+        ItItemPlayList={ItItemPlayList}
+        clickImg={clickImg}
+        releaseModal={releaseModal}
+        closeReleasePopup={closeReleasePopup}
+        modalPlayItem={modalPlayItem}
+      />
     );
   }
   return (
     <YoutubeList>
       {AllPlayList.items.map((item) => (
-        <YoutubeBox key={item.id}>
-          <YoutubeImg
-            src={`${item.snippet.thumbnails.high.url}`}
-            alt={`${item.snippet.title}`}
-            onClick={() => clickImg(item.snippet.resourceId.videoId)}
-          />
-        </YoutubeBox>
+        <YoutubeContent key={item.id} item={item} clickImg={clickImg} />
       ))}
-      {releaseModal && <Modal modalPlayId={modalPlayId} closeReleasePopup={closeReleasePopup} />}
+      {releaseModal && (
+        <Modal
+          modalPlayItem={modalPlayItem}
+          closeReleasePopup={closeReleasePopup}
+        />
+      )}
     </YoutubeList>
   );
 }
@@ -176,17 +97,3 @@ const YoutubeList = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 35px;
 `;
-const YoutubeBox = styled.div`
-  background-color: #ccc;
-`;
-const YoutubeImg = styled.img`
-  width: 100%;
-  cursor: pointer;
-`;
-const CateMainWarpper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 35px;
-  margin-bottom: 30px;
-`;
-const DescriptionBox = styled.div``;
