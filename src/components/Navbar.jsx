@@ -5,7 +5,19 @@ import { authService } from '../firebase';
 
 function Navbar({ setCategory }) {
   const navigate = useNavigate();
-  console.log(authService.currentUser);
+
+  const onLogout = () => {
+    authService
+      .signOut()
+      .then(() => {
+        console.log('👉👉  로그아웃 후');
+        navigate('/');
+      }) // logout successful
+      .catch((error) => {
+        console.log(error);
+      }); // logout fail
+  };
+
   return (
     <HeaderWrapper>
       <NavWrapper>
@@ -21,11 +33,7 @@ function Navbar({ setCategory }) {
       </NavWrapper>
       <AuthWrapper>
         {authService.currentUser ? (
-          <Button
-            onClick={() => authService.signOut()}
-            width="90px"
-            height="35px"
-          >
+          <Button onClick={() => onLogout()} width="90px" height="35px">
             로그아웃
           </Button>
         ) : (
