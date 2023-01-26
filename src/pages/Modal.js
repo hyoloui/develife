@@ -28,7 +28,9 @@ const Modal = ({ modalPlayItem, closeReleasePopup }) => {
             </YoutubeContents>
             <PlayItemContents>
               <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
-              <ContentsText>{modalPlayItem.description}</ContentsText>
+              <YoutubeDescription>
+                {modalPlayItem.description}
+              </YoutubeDescription>
             </PlayItemContents>
           </YoutubeBox>
           <ContentsContainer>
@@ -108,13 +110,6 @@ const ContentsBox = styled.div`
   justify-content: space-between;
   height: 95%;
 `;
-const ContentsText = styled.div`
-  border-radius: 8px;
-  background-color: #fff;
-  padding-left: 12px;
-  height: 4vh;
-  overflow-wrap: break-word;
-`;
 const CloseButton = styled.button`
   position: absolute;
   font-size: 24px;
@@ -131,15 +126,19 @@ const YoutubeContents = styled.div`
   margin-bottom: 10px;
 `;
 const YoutubeTitle = styled.p`
-  font-weight: 800;
+  font-weight: 700;
   font-size: 24px;
   overflow-wrap: break-word;
   margin-bottom: 10px;
 `;
 const YoutubePlayer = styled.iframe`
   height: 40vh;
+  background-color: #111;
 `;
 const PlayItemContents = styled.div`
   height: 22vh;
-  overflow: scroll;
+  overflow: auto;
+`;
+const YoutubeDescription = styled.div`
+  overflow-wrap: break-word;
 `;
