@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
-export default function AddForm({ item }) {
+
+export default function AddForm({ youtubeInfo }) {
   const [contentValue, setContentValue] = useState('');
 
   const newcontent = {
@@ -10,7 +11,7 @@ export default function AddForm({ item }) {
     userName: authService.currentUser.displayName,
     userId: authService.currentUser.uid,
     isEdit: false,
-    boardId: item.snippet.resourceId.videoId,
+    boardId: youtubeInfo.resourceId.videoId,
     createdAt: Date.now(),
   };
 
@@ -29,7 +30,7 @@ export default function AddForm({ item }) {
 
     await addDoc(collection(dbService, 'test'), newcontent);
     setContentValue('');
-    console.log('addid', newcontent.boardId);
+    console.log('addid', newcontent);
   };
 
   return (

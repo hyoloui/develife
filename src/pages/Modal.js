@@ -4,7 +4,7 @@ import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
 
-const Modal = ({ closeReleasePopup, item }) => {
+const Modal = ({ closeReleasePopup, youtubeInfo }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -23,17 +23,28 @@ const Modal = ({ closeReleasePopup, item }) => {
         <CloseButton onClick={() => closeReleasePopup()}>X</CloseButton>
         <ModalContainer>
           <YoutubeBox>
-            <YoutubeContents>영상 여기!</YoutubeContents>
+            <YoutubeContents>
+              <iframe
+                id="ytplayer"
+                type="text/html"
+                width="720"
+                height="405"
+                src={`https://www.youtube.com/embed/${youtubeInfo.resourceId.videoId}`}
+                frameBorder="0"
+                allowFullScreen
+                title="main"
+              />
+            </YoutubeContents>
             <div>
-              <YoutubeTitle>Title</YoutubeTitle>
-              <ContentsText>상세내용</ContentsText>
+              <YoutubeTitle> {youtubeInfo.title} </YoutubeTitle>
+              <ContentsText>{youtubeInfo.description}</ContentsText>
             </div>
           </YoutubeBox>
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsList />
-              {isLoggedIn ? <AddForm item={item} /> : null}
+              <ContentsList youtubeInfo={youtubeInfo} />
+              {isLoggedIn ? <AddForm youtubeInfo={youtubeInfo} /> : null}
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>
@@ -105,8 +116,8 @@ const ContentsText = styled.div`
   border-radius: 8px;
   background-color: #fff;
   padding-left: 12px;
-  height: 4vh;
-  overflow-wrap: break-word;
+  height: 16vh;
+  overflow: auto;
 `;
 const CloseButton = styled.button`
   position: absolute;
@@ -122,11 +133,13 @@ const CloseButton = styled.button`
 `;
 const YoutubeContents = styled.div`
   width: 100%;
-  height: 60%;
+  height: 66%;
   background-color: aliceblue;
+  margin-bottom: 1vh;
 `;
 const YoutubeTitle = styled.p`
   font-weight: 800;
   font-size: 24px;
   overflow-wrap: break-word;
+  margin-bottom: 1vh;
 `;

@@ -22,6 +22,7 @@ function YoutubeBoard({ category }) {
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
   const [releaseModal, setReleaseModal] = useState(false);
+  const [youtubeInfo, setYoutubeInfo] = useState('');
 
   const closeReleasePopup = () => {
     setReleaseModal(false);
@@ -31,9 +32,11 @@ function YoutubeBoard({ category }) {
   const clickImg = (id) => {
     setReleaseModal(true);
     document.body.style.overflow = 'hidden';
+    setYoutubeInfo(id.snippet);
+
     // router 연결 시 detail page 이동
     // 이동 시 params이용 id 전달
-    console.log('videoId', id);
+    console.log('youtubeId', id);
   };
 
   if (isLoading) {
@@ -48,13 +51,16 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${item.snippet.thumbnails.high.url}`}
               alt={`${item.snippet.title}`}
-              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+              onClick={() => clickImg(item)}
             />
-            {releaseModal && (
-              <Modal item={item} closeReleasePopup={closeReleasePopup} />
-            )}
           </YoutubeBox>
         ))}
+        {releaseModal && (
+          <Modal
+            closeReleasePopup={closeReleasePopup}
+            youtubeInfo={youtubeInfo}
+          />
+        )}
       </YoutubeList>
     );
   } else if (category === 'programing') {
@@ -65,13 +71,16 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${item.snippet.thumbnails.high.url}`}
               alt={`${item.snippet.title}`}
-              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+              onClick={() => clickImg(item)}
             />
-            {releaseModal && (
-              <Modal item={item} closeReleasePopup={closeReleasePopup} />
-            )}
           </YoutubeBox>
         ))}
+        {releaseModal && (
+          <Modal
+            closeReleasePopup={closeReleasePopup}
+            youtubeInfo={youtubeInfo}
+          />
+        )}
       </YoutubeList>
     );
   } else if (category === 'review') {
@@ -82,13 +91,16 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${item.snippet.thumbnails.high.url}`}
               alt={`${item.snippet.title}`}
-              onClick={() => clickImg(item.snippet.resourceId.videoId)}
+              onClick={() => clickImg(item)}
             />
-            {releaseModal && (
-              <Modal item={item} closeReleasePopup={closeReleasePopup} />
-            )}
           </YoutubeBox>
         ))}
+        {releaseModal && (
+          <Modal
+            closeReleasePopup={closeReleasePopup}
+            youtubeInfo={youtubeInfo}
+          />
+        )}
       </YoutubeList>
     );
   }
@@ -99,14 +111,16 @@ function YoutubeBoard({ category }) {
           <YoutubeImg
             src={`${item.snippet.thumbnails.high.url}`}
             alt={`${item.snippet.title}`}
-            onClick={() => clickImg(item.snippet.resourceId.videoId)}
+            onClick={() => clickImg(item)}
           />
-          {releaseModal && (
-            <Modal item={item} closeReleasePopup={closeReleasePopup} />
-          )}
         </YoutubeBox>
       ))}
-      \
+      {releaseModal && (
+        <Modal
+          closeReleasePopup={closeReleasePopup}
+          youtubeInfo={youtubeInfo}
+        />
+      )}
     </YoutubeList>
   );
 }
