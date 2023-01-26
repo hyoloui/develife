@@ -9,19 +9,15 @@ function Navbar({ setCategory }) {
   return (
     <HeaderWrapper>
       <NavWrapper>
-        <h1>Develife</h1>
-        <NavMenu onClick={() => setCategory('')}>
-          <p>Home</p>
-        </NavMenu>
-        <NavMenu onClick={() => setCategory('training')}>
-          <p>홈트레이닝</p>
-        </NavMenu>
-        <NavMenu onClick={() => setCategory('programing')}>
-          <p>프로그래밍</p>
-        </NavMenu>
-        <NavMenu onClick={() => setCategory('review')}>
-          <p>IT용품리뷰</p>
-        </NavMenu>
+        <Title>Develife</Title>
+        <NavMenuList>
+          <NavMenu onClick={() => setCategory('')}>Home</NavMenu>
+          <NavMenu onClick={() => setCategory('training')}>홈트레이닝</NavMenu>
+          <NavMenu onClick={() => setCategory('programing')}>
+            프로그래밍
+          </NavMenu>
+          <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
+        </NavMenuList>
       </NavWrapper>
       <AuthWrapper>
         {authService.currentUser ? (
@@ -59,33 +55,42 @@ function Navbar({ setCategory }) {
   );
 }
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  width: 100%;
+const HeaderWrapper = styled.nav`
   margin: auto;
   height: 100px;
+  margin-bottom: 20px;
+  display: flex;
 `;
 const NavWrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 30px;
   font-size: 18px;
-  width: 60%;
 `;
 const AuthWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 15px;
 `;
-const NavMenu = styled.nav`
+const Title = styled.h1`
+  width: 15%;
+`;
+const NavMenuList = styled.ul`
+  padding-left: 5%;
+  display: flex;
+`;
+const NavMenu = styled.li`
+  width: 150px;
   padding: 10px;
   display: flex;
   justify-content: center;
   text-align: center;
-  width: 320px;
+  margin-bottom: 3px;
   &:hover {
     border-bottom: 3px solid black;
+    margin-bottom: 0;
     font-weight: 700;
     cursor: pointer;
   }
