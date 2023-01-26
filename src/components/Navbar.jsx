@@ -3,8 +3,15 @@ import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../firebase';
 
-function Navbar({ setCategory }) {
+function Navbar({ category, setCategory }) {
   const navigate = useNavigate();
+
+  const nowCategoryStyle = {
+    borderBottom: '3px solid #fff',
+    marginBottom: 0,
+    fontWeight: 700,
+  };
+
 
   const onLogout = () => {
     authService
@@ -18,17 +25,36 @@ function Navbar({ setCategory }) {
       }); // logout fail
   };
 
+
   return (
     <HeaderWrapper>
       <NavWrapper>
         <Title>Develife</Title>
         <NavMenuList>
-          <NavMenu onClick={() => setCategory('')}>Home</NavMenu>
-          <NavMenu onClick={() => setCategory('training')}>홈트레이닝</NavMenu>
-          <NavMenu onClick={() => setCategory('programing')}>
+          <NavMenu
+            onClick={() => setCategory('')}
+            style={category === '' ? nowCategoryStyle : null}
+          >
+            Home
+          </NavMenu>
+          <NavMenu
+            onClick={() => setCategory('training')}
+            style={category === 'training' ? nowCategoryStyle : null}
+          >
+            홈트레이닝
+          </NavMenu>
+          <NavMenu
+            onClick={() => setCategory('programing')}
+            style={category === 'programing' ? nowCategoryStyle : null}
+          >
             프로그래밍
           </NavMenu>
-          <NavMenu onClick={() => setCategory('review')}>IT용품리뷰</NavMenu>
+          <NavMenu
+            onClick={() => setCategory('review')}
+            style={category === 'review' ? nowCategoryStyle : null}
+          >
+            IT용품리뷰
+          </NavMenu>
         </NavMenuList>
       </NavWrapper>
       <AuthWrapper>
@@ -68,6 +94,7 @@ const HeaderWrapper = styled.nav`
   height: 100px;
   margin-bottom: 20px;
   display: flex;
+  color: #fff;
 `;
 const NavWrapper = styled.div`
   width: 100%;
@@ -97,7 +124,7 @@ const NavMenu = styled.li`
   text-align: center;
   margin-bottom: 3px;
   &:hover {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #fff;
     margin-bottom: 0;
     font-weight: 700;
     cursor: pointer;

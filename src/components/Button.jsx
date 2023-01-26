@@ -4,12 +4,13 @@ export default styled.button`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   font-size: ${(props) => props.fontSize};
-  background-color: darkgray;
+  background-color: #656565;
   color: #fff;
   border: none;
   border-radius: 10px;
   &:hover {
     cursor: pointer;
-    opacity: 0.8;
+    background-color: #fff;
+    color: #656565;
   }
 `;
