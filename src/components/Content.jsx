@@ -64,48 +64,49 @@ export default function Content({ item, contents }) {
 
   return (
     <ContentsItem key={item.id}>
-      <ContentsIdContainer>
-        {item.isEdit ? (
-          <>
-            <>
-              <ContentsId>{item?.userName}</ContentsId>
-              <button
-                onClick={() => {
-                  EditContent(item.id);
-                }}
-              >
-                확인
-              </button>
-              <button
-                onClick={() => {
-                  EditCancel(item.id);
-                }}
-              >
-                취소
-              </button>
-            </>
-            <input
-              onChange={(e) => {
-                setEditContentValue(e.target.value);
-              }}
-              type="text"
-              autoFocus={true}
-              value={editContentValue}
-              placeholder="댓글을 작성해주세요."
-              maxLength="32"
-            />
-          </>
-        ) : (
+      {item.isEdit ? (
+        <>
           <>
             <ContentsId>{item?.userName}</ContentsId>
-            {/*(if(authService.currentUser.uid === item.userId)*/}
+            <button
+              onClick={() => {
+                EditContent(item.id);
+              }}
+            >
+              확인
+            </button>
+            <button
+              onClick={() => {
+                EditCancel(item.id);
+              }}
+            >
+              취소
+            </button>
+          </>
+          <input
+            onChange={(e) => {
+              setEditContentValue(e.target.value);
+            }}
+            type="text"
+            autoFocus={true}
+            value={editContentValue}
+            placeholder="댓글을 작성해주세요."
+            maxLength="32"
+          />
+        </>
+      ) : (
+        <>
+          <ContentsIdContainer>
+            <ContentsId>{item?.userName}</ContentsId>
             {isLoggedIn && authService.currentUser.uid === item.userId ? (
-              <IoChevronDownCircle
-                onClick={() => {
-                  setDropDown(!dropDown);
-                }}
-                size={24}
-              />
+              <EditIcon>
+                <IoChevronDownCircle
+                  onClick={() => {
+                    setDropDown(!dropDown);
+                  }}
+                  size={24}
+                />
+              </EditIcon>
             ) : null}
 
             {dropDown === true ? (
@@ -124,10 +125,10 @@ export default function Content({ item, contents }) {
                 />
               </DropDownBox>
             ) : null}
-            <ContentsText>{item.text}</ContentsText>
-          </>
-        )}
-      </ContentsIdContainer>
+          </ContentsIdContainer>
+          <ContentsText>{item.text}</ContentsText>
+        </>
+      )}
     </ContentsItem>
   );
 }
@@ -149,9 +150,18 @@ const ContentsText = styled.div`
 
 const DropDownBox = styled.div`
   position: absolute;
+  display: flex;
   background-color: #fff;
   z-index: 300;
   height: auto;
   width: auto;
+  top: 210px;
+  right: 180px;
 `;
-const ContentsIdContainer = styled.div``;
+const ContentsIdContainer = styled.div`
+  display: flex;
+`;
+
+const EditIcon = styled.div`
+  margin-left: 150px;
+`;
