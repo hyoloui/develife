@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 
-const Modal = ({ modalPlayId, closeReleasePopup }) => {
+const Modal = ({ modalPlayItem, closeReleasePopup }) => {
   const [contentValue, setContentValue] = useState('');
 
   const newcontent = {
@@ -20,20 +20,16 @@ const Modal = ({ modalPlayId, closeReleasePopup }) => {
         <ModalContainer>
           <YoutubeBox>
             <YoutubeContents>
-              <iframe
+              <YoutubePlayer
                 id="ytplayer"
                 type="text/html"
-                width="720"
-                height="405"
-                src={`https://www.youtube.com/embed/${modalPlayId}`}
-                frameborder="0"
-                allowfullscreen
+                src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
               />
             </YoutubeContents>
-            <div>
-              <YoutubeTitle>Title</YoutubeTitle>
-              <ContentsText>상세내용</ContentsText>
-            </div>
+            <PlayItemContents>
+              <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
+              <ContentsText>{modalPlayItem.description}</ContentsText>
+            </PlayItemContents>
           </YoutubeBox>
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
@@ -132,12 +128,18 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 const YoutubeContents = styled.div`
-  width: 100%;
-  height: 60%;
-  background-color: aliceblue;
+  margin-bottom: 10px;
 `;
 const YoutubeTitle = styled.p`
   font-weight: 800;
   font-size: 24px;
   overflow-wrap: break-word;
+  margin-bottom: 10px;
+`;
+const YoutubePlayer = styled.iframe`
+  height: 40vh;
+`;
+const PlayItemContents = styled.div`
+  height: 22vh;
+  overflow: scroll;
 `;

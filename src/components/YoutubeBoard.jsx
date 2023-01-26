@@ -22,17 +22,17 @@ function YoutubeBoard({ category }) {
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
   const [releaseModal, setReleaseModal] = useState(false);
-  const [modalPlayId, setModalPlayId] = useState('');
+  const [modalPlayItem, setModalPlayItem] = useState('');
 
-  const clickImg = (id) => {
+  const clickImg = (snippet) => {
     setReleaseModal(true);
     document.body.style.overflow = 'hidden';
-    setModalPlayId(id);
+    setModalPlayItem(snippet);
   };
 
   const closeReleasePopup = () => {
     setReleaseModal(false);
-    setModalPlayId('');
+    setModalPlayItem('');
     document.body.style.overflow = 'unset';
   };
 
@@ -48,11 +48,7 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${HometrainningPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${HometrainningPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(
-                  HometrainningPlayList.items[0].snippet.resourceId.videoId,
-                )
-              }
+              onClick={() => clickImg(HometrainningPlayList.items[0].snippet)}
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -65,13 +61,13 @@ function YoutubeBoard({ category }) {
                 <YoutubeImg
                   src={`${item.snippet.thumbnails.high.url}`}
                   alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
+                  onClick={() => clickImg(item.snippet)}
                 />
               </YoutubeBox>
             ))}
           {releaseModal && (
             <Modal
-              modalPlayId={modalPlayId}
+              modalPlayItem={modalPlayItem}
               closeReleasePopup={closeReleasePopup}
             />
           )}
@@ -86,11 +82,7 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${ProgrammingPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${ProgrammingPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(
-                  ProgrammingPlayList.items[0].snippet.resourceId.videoId,
-                )
-              }
+              onClick={() => clickImg(ProgrammingPlayList.items[0].snippet)}
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -103,13 +95,13 @@ function YoutubeBoard({ category }) {
                 <YoutubeImg
                   src={`${item.snippet.thumbnails.high.url}`}
                   alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
+                  onClick={() => clickImg(item.snippet)}
                 />
               </YoutubeBox>
             ))}
           {releaseModal && (
             <Modal
-              modalPlayId={modalPlayId}
+              modalPlayItem={modalPlayItem}
               closeReleasePopup={closeReleasePopup}
             />
           )}
@@ -124,9 +116,7 @@ function YoutubeBoard({ category }) {
             <YoutubeImg
               src={`${ItItemPlayList.items[0].snippet.thumbnails.maxres.url}`}
               alt={`${ItItemPlayList.items[0].snippet.title}`}
-              onClick={() =>
-                clickImg(ItItemPlayList.items[0].snippet.resourceId.videoId)
-              }
+              onClick={() => clickImg(ItItemPlayList.items[0].snippet)}
             />
           </YoutubeBox>
           <DescriptionBox>카테고리 설명</DescriptionBox>
@@ -139,13 +129,13 @@ function YoutubeBoard({ category }) {
                 <YoutubeImg
                   src={`${item.snippet.thumbnails.high.url}`}
                   alt={`${item.snippet.title}`}
-                  onClick={() => clickImg(item.snippet.resourceId.videoId)}
+                  onClick={() => clickImg(item.snippet)}
                 />
               </YoutubeBox>
             ))}
           {releaseModal && (
             <Modal
-              modalPlayId={modalPlayId}
+              modalPlayItem={modalPlayItem}
               closeReleasePopup={closeReleasePopup}
             />
           )}
@@ -160,11 +150,16 @@ function YoutubeBoard({ category }) {
           <YoutubeImg
             src={`${item.snippet.thumbnails.high.url}`}
             alt={`${item.snippet.title}`}
-            onClick={() => clickImg(item.snippet.resourceId.videoId)}
+            onClick={() => clickImg(item.snippet)}
           />
         </YoutubeBox>
       ))}
-      {releaseModal && <Modal modalPlayId={modalPlayId} closeReleasePopup={closeReleasePopup} />}
+      {releaseModal && (
+        <Modal
+          modalPlayItem={modalPlayItem}
+          closeReleasePopup={closeReleasePopup}
+        />
+      )}
     </YoutubeList>
   );
 }
