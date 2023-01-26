@@ -33,6 +33,7 @@ function YoutubeBoard({ category }) {
     document.body.style.overflow = 'hidden';
     // router 연결 시 detail page 이동
     // 이동 시 params이용 id 전달
+    console.log('videoId', id);
   };
 
   if (isLoading) {
@@ -49,9 +50,11 @@ function YoutubeBoard({ category }) {
               alt={`${item.snippet.title}`}
               onClick={() => clickImg(item.snippet.resourceId.videoId)}
             />
+            {releaseModal && (
+              <Modal item={item} closeReleasePopup={closeReleasePopup} />
+            )}
           </YoutubeBox>
         ))}
-        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   } else if (category === 'programing') {
@@ -64,9 +67,11 @@ function YoutubeBoard({ category }) {
               alt={`${item.snippet.title}`}
               onClick={() => clickImg(item.snippet.resourceId.videoId)}
             />
+            {releaseModal && (
+              <Modal item={item} closeReleasePopup={closeReleasePopup} />
+            )}
           </YoutubeBox>
         ))}
-        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   } else if (category === 'review') {
@@ -79,9 +84,11 @@ function YoutubeBoard({ category }) {
               alt={`${item.snippet.title}`}
               onClick={() => clickImg(item.snippet.resourceId.videoId)}
             />
+            {releaseModal && (
+              <Modal item={item} closeReleasePopup={closeReleasePopup} />
+            )}
           </YoutubeBox>
         ))}
-        {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
       </YoutubeList>
     );
   }
@@ -94,9 +101,12 @@ function YoutubeBoard({ category }) {
             alt={`${item.snippet.title}`}
             onClick={() => clickImg(item.snippet.resourceId.videoId)}
           />
+          {releaseModal && (
+            <Modal item={item} closeReleasePopup={closeReleasePopup} />
+          )}
         </YoutubeBox>
       ))}
-      {releaseModal && <Modal closeReleasePopup={closeReleasePopup} />}
+      \
     </YoutubeList>
   );
 }

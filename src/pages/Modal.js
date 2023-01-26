@@ -4,7 +4,7 @@ import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
 
-const Modal = ({ closeReleasePopup }) => {
+const Modal = ({ closeReleasePopup, item }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -33,7 +33,7 @@ const Modal = ({ closeReleasePopup }) => {
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
               <ContentsList />
-              {isLoggedIn ? <AddForm /> : null}
+              {isLoggedIn ? <AddForm item={item} /> : null}
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>
