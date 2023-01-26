@@ -4,12 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../firebase';
 
 function Navbar({ category, setCategory }) {
-  //로그아웃
-  const onLogOutClick = () => {
-    authService.signOut();
-    console.log('로그아웃했어요');
-  };
-
   const navigate = useNavigate();
 
   const nowCategoryStyle = {
@@ -18,19 +12,16 @@ function Navbar({ category, setCategory }) {
     fontWeight: 700,
   };
 
-
   const onLogout = () => {
     authService
       .signOut()
       .then(() => {
-        console.log('👉👉  로그아웃 후');
         navigate('/');
       }) // logout successful
       .catch((error) => {
         console.log(error);
       }); // logout fail
   };
-
 
   return (
     <HeaderWrapper>
@@ -64,11 +55,7 @@ function Navbar({ category, setCategory }) {
         </NavMenuList>
       </NavWrapper>
       <AuthWrapper>
-        {authService.currentUser ? (
-          <Button onClick={() => onLogout()} width="90px" height="35px">
-            로그아웃
-          </Button>
-        ) : (
+        {!authService.currentUser ? (
           <>
             <Button
               onClick={() => {
@@ -89,6 +76,10 @@ function Navbar({ category, setCategory }) {
               회원가입
             </Button>
           </>
+        ) : (
+          <Button onClick={() => onLogout()} width="90px" height="35px">
+            로그아웃
+          </Button>
         )}
       </AuthWrapper>
     </HeaderWrapper>

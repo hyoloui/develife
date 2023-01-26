@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
 
-export default function AddForm({ youtubeInfo }) {
+export default function AddForm({ modalPlayItem }) {
   const [contentValue, setContentValue] = useState('');
 
   const newcontent = {
@@ -11,7 +11,7 @@ export default function AddForm({ youtubeInfo }) {
     userName: authService.currentUser.displayName,
     userId: authService.currentUser.uid,
     isEdit: false,
-    boardId: youtubeInfo.resourceId.videoId,
+    boardId: modalPlayItem.resourceId.videoId,
     createdAt: Date.now(),
   };
 

@@ -4,7 +4,7 @@ import Content from './Content';
 import { query, collection, onSnapshot, orderBy } from 'firebase/firestore';
 import { dbService } from '../firebase';
 
-export default function ContentsList({ youtubeInfo }) {
+export default function ContentsList({ modalPlayItem }) {
   const [contents, setContents] = useState([]);
   useEffect(() => {
     const q = query(
@@ -26,7 +26,7 @@ export default function ContentsList({ youtubeInfo }) {
   return (
     <ContentsScroll>
       {contents.map((item) => {
-        if (youtubeInfo.resourceId.videoId === item.boardId) {
+        if (modalPlayItem.resourceId.videoId === item.boardId) {
           return <Content key={item.id} item={item} contents={contents} />;
         }
         return null;

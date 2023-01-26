@@ -40,8 +40,8 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsList youtubeInfo={youtubeInfo} />
-              {isLoggedIn ? <AddForm youtubeInfo={youtubeInfo} /> : null}
+              <ContentsList modalPlayItem={modalPlayItem} />
+              {isLoggedIn ? <AddForm modalPlayItem={modalPlayItem} /> : null}
             </ContentsBox>
           </ContentsContainer>
         </ModalContainer>
@@ -126,14 +126,12 @@ const YoutubeContents = styled.div`
   height: 66%;
   background-color: aliceblue;
   margin-bottom: 1vh;
-
 `;
 const YoutubeTitle = styled.p`
   font-weight: 700;
   font-size: 24px;
   overflow-wrap: break-word;
   margin-bottom: 1vh;
-
 `;
 const YoutubePlayer = styled.iframe`
   height: 40vh;
