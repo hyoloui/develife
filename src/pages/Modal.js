@@ -28,6 +28,7 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
                 id="ytplayer"
                 type="text/html"
                 src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
+                allowFullScreen
               />
             </YoutubeContents>
             <PlayItemContents>
@@ -123,8 +124,7 @@ const CloseButton = styled.button`
 `;
 const YoutubeContents = styled.div`
   width: 100%;
-  height: 66%;
-  background-color: aliceblue;
+  height: 62%;
   margin-bottom: 1vh;
 `;
 const YoutubeTitle = styled.p`
@@ -138,7 +138,7 @@ const YoutubePlayer = styled.iframe`
   background-color: #111;
 `;
 const PlayItemContents = styled.div`
-  height: 22vh;
+  height: 24vh;
   overflow: auto;
 `;
 const YoutubeDescription = styled.div`
