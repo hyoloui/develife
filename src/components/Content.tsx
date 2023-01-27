@@ -81,7 +81,7 @@ export default function Content({ item, isLoggedIn }: ContentProps) {
             autoFocus={true}
             value={editContentValue}
             placeholder="수정할 댓글을 입력해주세요."
-            maxLength="32"
+            maxLength={32}
           />
         </div>
       ) : (

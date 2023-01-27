@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
 import Button from './Button';
-import { Snippet } from './YoutubeBoard';
+import { Snippet } from '../index.data';
 
 type AddProps = {
   modalPlayItem: Snippet | null;
@@ -47,7 +47,7 @@ export default function AddForm({ modalPlayItem }: AddProps) {
           onChange={(e) => {
             setContentValue(e.target.value);
           }}
-          maxLength="32"
+          maxLength={32}
           autoFocus={true}
         />
         <Button width="80px" height="35px">
