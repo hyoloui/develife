@@ -3,9 +3,24 @@ import styled from '@emotion/styled';
 import Content from './Content';
 import { query, collection, onSnapshot, orderBy } from 'firebase/firestore';
 import { dbService } from '../firebase';
+import { Snippet } from './YoutubeBoard';
 
-export default function ContentsList({ modalPlayItem, isLoggedIn }) {
-  const [contents, setContents] = useState([]);
+type ListProps = {
+  modalPlayItem: Snippet | null;
+  isLoggedIn: boolean;
+};
+
+export type CommentItem = {
+  id: string;
+  boardId?: string;
+  text?: string;
+  isEdit?: boolean;
+  userName?: string;
+  userId?: string;
+};
+
+export default function ContentsList({ modalPlayItem, isLoggedIn }: ListProps) {
+  const [contents, setContents] = useState<CommentItem[]>([]);
 
   // collection 불러오기
   useEffect(() => {
@@ -28,7 +43,7 @@ export default function ContentsList({ modalPlayItem, isLoggedIn }) {
   return (
     <ContentsScroll>
       {contents.map((item) => {
-        if (modalPlayItem.resourceId.videoId === item.boardId) {
+        if (modalPlayItem?.resourceId.videoId === item.boardId) {
           return <Content key={item.id} item={item} isLoggedIn={isLoggedIn} />;
         }
         return null;
