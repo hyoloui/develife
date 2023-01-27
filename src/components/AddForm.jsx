@@ -26,8 +26,8 @@ export default function AddForm({ modalPlayItem }) {
       setContentValue('');
       return alert('입력한 글이 없습니다.');
     }
-    // add content 하기
 
+    // add content 하기
     await addDoc(collection(dbService, 'test'), newcontent);
     setContentValue('');
   };

@@ -4,8 +4,10 @@ import Content from './Content';
 import { query, collection, onSnapshot, orderBy } from 'firebase/firestore';
 import { dbService } from '../firebase';
 
-export default function ContentsList({ modalPlayItem, releaseModal }) {
+export default function ContentsList({ modalPlayItem, isLoggedIn }) {
   const [contents, setContents] = useState([]);
+
+  // collection 불러오기
   useEffect(() => {
     const q = query(
       collection(dbService, 'test'),
@@ -21,20 +23,13 @@ export default function ContentsList({ modalPlayItem, releaseModal }) {
       });
       setContents(newcontents);
     });
-  });
+  }, []);
 
   return (
     <ContentsScroll>
       {contents.map((item) => {
         if (modalPlayItem.resourceId.videoId === item.boardId) {
-          return (
-            <Content
-              key={item.id}
-              item={item}
-              contents={contents}
-              releaseModal={releaseModal}
-            />
-          );
+          return <Content key={item.id} item={item} isLoggedIn={isLoggedIn} />;
         }
         return null;
       })}
