@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Item, Snippet } from './YoutubeBoard';
+import { Snippet, Item } from '../index.data';
 
 interface ItemProps {
   item: Item;
