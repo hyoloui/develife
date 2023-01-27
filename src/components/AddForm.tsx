@@ -47,7 +47,7 @@ export default function AddForm({ modalPlayItem }: AddProps) {
           onChange={(e) => {
             setContentValue(e.target.value);
           }}
-          maxLength="32"
+          maxLength={32}
           autoFocus={true}
         />
         <Button width="80px" height="35px">
