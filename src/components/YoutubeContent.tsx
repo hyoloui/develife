@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Item, Snippet } from './YoutubeBoard';
 
-const YoutubeContent = ({ item, clickImg }) => {
+interface ItemProps {
+  item: Item;
+  clickImg(snippet: Snippet): void;
+}
+
+const YoutubeContent = ({ item, clickImg }: ItemProps) => {
   return (
     <YoutubeBox key={item.id}>
       <YoutubeImg
