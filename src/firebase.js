@@ -4,12 +4,12 @@ import { getDatabase } from 'firebase/database';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCPs7KOpmhVSLiroAqztRrNcQMCs5jDD6I',
-  authDomain: 'react-native-e5dcd.firebaseapp.com',
-  projectId: 'react-native-e5dcd',
-  storageBucket: 'react-native-e5dcd.appspot.com',
-  messagingSenderId: '976058217062',
-  appId: '1:976058217062:web:2189d8b179f4d0fbb5f3a7',
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase

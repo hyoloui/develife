@@ -1,7 +1,6 @@
 const BaseURL =
   'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=';
-const API_KEY = 'AIzaSyDdIYqOmNFY1P0evPTxUKP5mPYwLL5HvnA';
-
+const API_KEY = String(process.env.REACT_APP_youtube);
 export const getAll = () =>
   fetch(
     `${BaseURL}PL1V8Ky17d9SudCHJb1F2pHBvIMFBlpfad&maxResults=30&key=${API_KEY}`,
