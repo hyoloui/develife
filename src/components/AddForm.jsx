@@ -11,7 +11,6 @@ export default function AddForm({ modalPlayItem }) {
     text: contentValue,
     userName: authService.currentUser.displayName,
     userId: authService.currentUser.uid,
-    isEdit: false,
     boardId: modalPlayItem.resourceId.videoId,
     createdAt: Date.now(),
   };
@@ -31,7 +30,6 @@ export default function AddForm({ modalPlayItem }) {
 
     await addDoc(collection(dbService, 'test'), newcontent);
     setContentValue('');
-    console.log('addid', newcontent);
   };
 
   return (

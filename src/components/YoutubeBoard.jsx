@@ -83,6 +83,7 @@ function YoutubeBoard({ category }) {
       {releaseModal && (
         <Modal
           modalPlayItem={modalPlayItem}
+          releaseModal={releaseModal}
           closeReleasePopup={closeReleasePopup}
         />
       )}

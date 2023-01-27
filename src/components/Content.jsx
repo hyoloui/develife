@@ -7,9 +7,9 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { BsTrashFill, BsFillPencilFill } from 'react-icons/bs';
 import Button from './Button';
 
-export default function Content({ item, contents }) {
-  const [dropDown, setDropDown] = useState(false);
+export default function Content({ item, contents, releaseModal }) {
   const [editContentValue, setEditContentValue] = useState(item.text);
+  const [isEdit, setIsEdit] = useState(false);
 
   // Content delete하기
   const deleteContent = async (id) => {
@@ -19,18 +19,12 @@ export default function Content({ item, contents }) {
       alert('삭제하였습니다.');
     } else {
       alert('취소하였습니다.');
-      setDropDown(false);
     }
   };
   // Content edit하기
-  const Edit = async (id) => {
-    const idx = contents.findIndex((item) => item.id === id);
-    await updateDoc(doc(dbService, 'test', id), {
-      isEdit: !contents[idx].isEdit,
-    });
-  };
 
   const EditContent = async (id) => {
+    console.log('ididid', id);
     const editContent = editContentValue.trim();
     if (!editContent) {
       setEditContentValue('');
@@ -38,17 +32,12 @@ export default function Content({ item, contents }) {
     }
     await updateDoc(doc(dbService, 'test', id), {
       text: editContent,
-      isEdit: false,
     });
-    setDropDown(false);
+    setIsEdit(false);
   };
 
-  const EditCancel = async (id) => {
-    await updateDoc(doc(dbService, 'test', id), {
-      isEdit: false,
-    });
-    setDropDown(false);
-    setEditContentValue(item.text);
+  const EditCancel = () => {
+    setIsEdit(false);
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
@@ -64,7 +53,7 @@ export default function Content({ item, contents }) {
 
   return (
     <ContentsItem key={item.id}>
-      {item.isEdit ? (
+      {isEdit ? (
         <div>
           <ContentsIdContainer>
             <ContentsId>{item?.userName}</ContentsId>
@@ -105,35 +94,30 @@ export default function Content({ item, contents }) {
           <ContentsIdContainer>
             <ContentsId>{item?.userName}</ContentsId>
             {isLoggedIn && authService.currentUser.uid === item.userId ? (
-              <IconWrapper>
-                <IoChevronDownCircle
-                  onClick={() => {
-                    setDropDown(!dropDown);
-                  }}
-                  size={24}
-                />
-              </IconWrapper>
-            ) : null}
-
-            {dropDown === true ? (
-              <DropDownBox>
-                <BsFillPencilFill
-                  size={24}
-                  color="white"
-                  onClick={() => {
-                    Edit(item.id);
-                  }}
-                />
-                <BsTrashFill
-                  size={24}
-                  color="white"
-                  onClick={() => {
-                    deleteContent(item.id);
-                  }}
-                />
-              </DropDownBox>
+              <DropDown>
+                <IoChevronDownCircle size={24} />
+                <DropDownBox className="DropDownBox">
+                  <HoverButton>
+                    <BsFillPencilFill
+                      size={24}
+                      onClick={() => {
+                        setIsEdit(true);
+                      }}
+                    />
+                  </HoverButton>
+                  <HoverButton>
+                    <BsTrashFill
+                      size={24}
+                      onClick={() => {
+                        deleteContent(item.id);
+                      }}
+                    />
+                  </HoverButton>
+                </DropDownBox>
+              </DropDown>
             ) : null}
           </ContentsIdContainer>
+
           <ContentsText>
             <p>{item.text}</p>
           </ContentsText>
@@ -160,23 +144,20 @@ const ContentsText = styled.div`
 `;
 const DropDownBox = styled.div`
   position: absolute;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   background-color: black;
   border-radius: 12px;
-  z-index: 300;
+  z-index: 1;
   height: 72px;
   width: 40px;
   top: 24px;
-  right: -1vw;
+  right: 0;
 `;
 const ContentsIdContainer = styled.div`
   position: relative;
   display: flex;
-`;
-const IconWrapper = styled.div`
-  width: 48px;
 `;
 const EditButtonWrapper = styled.div`
   width: 200px;
@@ -192,5 +173,24 @@ const InputValue = styled.input`
   padding: 0px 12px;
   :focus {
     outline: none;
+  }
+`;
+const DropDown = styled.div`
+  width: 48px;
+  position: relative;
+  display: inline-block;
+  &:hover {
+    cursor: pointer;
+    color: #7c7c7c;
+    .DropDownBox {
+      display: flex;
+    }
+  }
+`;
+
+const HoverButton = styled.div`
+  color: 656565;
+  &:hover {
+    color: white;
   }
 `;

@@ -4,8 +4,9 @@ import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
 
-const Modal = ({ closeReleasePopup, modalPlayItem }) => {
+const Modal = ({ closeReleasePopup, releaseModal, modalPlayItem }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -14,7 +15,7 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
         setIsLoggedIn(false);
       }
     });
-  });
+  }, []);
 
   return (
     <>
@@ -33,6 +34,7 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
             </YoutubeContents>
             <PlayItemContents>
               <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
+
               <YoutubeDescription>
                 {modalPlayItem.description}
               </YoutubeDescription>
@@ -41,7 +43,10 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsList modalPlayItem={modalPlayItem} />
+              <ContentsList
+                modalPlayItem={modalPlayItem}
+                releaseModal={releaseModal}
+              />
               {isLoggedIn ? <AddForm modalPlayItem={modalPlayItem} /> : null}
             </ContentsBox>
           </ContentsContainer>
@@ -93,7 +98,6 @@ const ContentsContainer = styled.div`
   background-color: lightgray;
   width: 45%;
   height: 80%;
-
   border-radius: 16px;
 `;
 const ContentsTitle = styled.div`
@@ -138,9 +142,17 @@ const YoutubePlayer = styled.iframe`
   background-color: #111;
 `;
 const PlayItemContents = styled.div`
+  border-radius: 8px;
   height: 24vh;
-  overflow: auto;
+  overflow: hidden;
+  &:hover {
+    overflow: auto;
+  }
 `;
 const YoutubeDescription = styled.div`
+  background-color: #e6e6e6;
   overflow-wrap: break-word;
+  white-space: pre-line;
+  padding: 12px;
+  border-radius: 8px;
 `;
