@@ -3,8 +3,19 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
+import { Snippet } from '../components/YoutubeBoard';
 
-const Modal = ({ closeReleasePopup, modalPlayItem }) => {
+type ModalProps = {
+  releaseModal?: boolean;
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
+
+const Modal = ({
+  closeReleasePopup,
+  modalPlayItem,
+  releaseModal,
+}: ModalProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 로그인 확인
@@ -28,16 +39,15 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
             <YoutubeContents>
               <YoutubePlayer
                 id="ytplayer"
-                type="text/html"
-                src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
+                src={`https://www.youtube.com/embed/${modalPlayItem?.resourceId.videoId}`}
                 allowFullScreen
               />
             </YoutubeContents>
             <PlayItemContents>
-              <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
+              <YoutubeTitle>{modalPlayItem?.title}</YoutubeTitle>
 
               <YoutubeDescription>
-                {modalPlayItem.description}
+                {modalPlayItem?.description}
               </YoutubeDescription>
             </PlayItemContents>
           </YoutubeBox>

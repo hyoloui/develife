@@ -6,13 +6,19 @@ import { authService, dbService } from '../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { BsTrashFill, BsFillPencilFill } from 'react-icons/bs';
 import Button from './Button';
+import { CommentItem } from './ContentsList';
 
-export default function Content({ item, isLoggedIn }) {
+type ContentProps = {
+  item: CommentItem;
+  isLoggedIn: boolean;
+};
+
+export default function Content({ item, isLoggedIn }: ContentProps) {
   const [editContentValue, setEditContentValue] = useState(item.text);
   const [isEdit, setIsEdit] = useState(false);
 
   // Content delete하기
-  const deleteContent = async (id) => {
+  const deleteContent = async (id: string) => {
     let con = window.confirm('정말 삭제하시겠습니까?');
     if (con === true) {
       await deleteDoc(doc(dbService, 'test', id));
@@ -23,8 +29,8 @@ export default function Content({ item, isLoggedIn }) {
   };
 
   // Content edit하기
-  const EditContent = async (id) => {
-    const editContent = editContentValue.trim();
+  const EditContent = async (id: string) => {
+    const editContent = editContentValue?.trim();
     if (!editContent) {
       setEditContentValue('');
       return alert('입력한 글이 없습니다.');
@@ -60,7 +66,7 @@ export default function Content({ item, isLoggedIn }) {
                 width="62px"
                 height="28px"
                 onClick={() => {
-                  EditCancel(item.id);
+                  EditCancel();
                 }}
               >
                 취소
@@ -82,7 +88,7 @@ export default function Content({ item, isLoggedIn }) {
         <div>
           <ContentsIdContainer>
             <ContentsId>{item?.userName}</ContentsId>
-            {isLoggedIn && authService.currentUser.uid === item.userId ? (
+            {isLoggedIn && authService.currentUser?.uid === item.userId ? (
               <DropDown>
                 <IoChevronDownCircle size={24} />
                 <DropDownBox className="DropDownBox">
