@@ -38,7 +38,7 @@ function Login() {
       <div className="container">
         <div className="containerTop">
           <span>로그인</span>
-          <a href="http://localhost:3000/signup" style={{ width: '90px' }}>
+          <a href="https://develife-yunjunhojj.vercel.app/signup" style={{ width: '90px' }}>
             회원가입
           </a>
         </div>
