@@ -4,9 +4,10 @@ import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
 
-const Modal = ({ closeReleasePopup, releaseModal, modalPlayItem }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+const Modal = ({ closeReleasePopup, modalPlayItem }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 로그인 확인
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -45,7 +46,7 @@ const Modal = ({ closeReleasePopup, releaseModal, modalPlayItem }) => {
             <ContentsBox>
               <ContentsList
                 modalPlayItem={modalPlayItem}
-                releaseModal={releaseModal}
+                isLoggedIn={isLoggedIn}
               />
               {isLoggedIn ? <AddForm modalPlayItem={modalPlayItem} /> : null}
             </ContentsBox>

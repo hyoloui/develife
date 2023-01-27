@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { IoChevronDownCircle } from 'react-icons/io5';
 import { useState } from 'react';
@@ -7,7 +7,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { BsTrashFill, BsFillPencilFill } from 'react-icons/bs';
 import Button from './Button';
 
-export default function Content({ item, contents, releaseModal }) {
+export default function Content({ item, isLoggedIn }) {
   const [editContentValue, setEditContentValue] = useState(item.text);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -21,10 +21,9 @@ export default function Content({ item, contents, releaseModal }) {
       alert('취소하였습니다.');
     }
   };
-  // Content edit하기
 
+  // Content edit하기
   const EditContent = async (id) => {
-    console.log('ididid', id);
     const editContent = editContentValue.trim();
     if (!editContent) {
       setEditContentValue('');
@@ -38,18 +37,8 @@ export default function Content({ item, contents, releaseModal }) {
 
   const EditCancel = () => {
     setIsEdit(false);
+    setEditContentValue(item.text);
   };
-
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
-  useEffect(() => {
-    authService.onAuthStateChanged((user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  });
 
   return (
     <ContentsItem key={item.id}>
