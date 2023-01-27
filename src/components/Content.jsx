@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { IoChevronDownCircle, IoCut, IoCloseCircle } from 'react-icons/io5';
+import { IoChevronDownCircle } from 'react-icons/io5';
 import { useState } from 'react';
 import { authService, dbService } from '../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { BsTrashFill, BsFillPencilFill } from 'react-icons/bs';
+import Button from './Button';
 
 export default function Content({ item, contents }) {
   const [dropDown, setDropDown] = useState(false);
@@ -60,74 +62,83 @@ export default function Content({ item, contents }) {
     });
   });
 
-  //authService.currentUser.uid === item.userId && (드랍박스 보이고)
-
   return (
     <ContentsItem key={item.id}>
-      <ContentsIdContainer>
-        {item.isEdit ? (
-          <>
-            <>
-              <ContentsId>{item?.userName}</ContentsId>
-              <button
+      {item.isEdit ? (
+        <div>
+          <ContentsIdContainer>
+            <ContentsId>{item?.userName}</ContentsId>
+            <EditButtonWrapper>
+              <Button
+                width="62px"
+                height="28px"
                 onClick={() => {
                   EditContent(item.id);
                 }}
               >
                 확인
-              </button>
-              <button
+              </Button>
+              <Button
+                width="62px"
+                height="28px"
                 onClick={() => {
                   EditCancel(item.id);
                 }}
               >
                 취소
-              </button>
-            </>
-            <input
-              onChange={(e) => {
-                setEditContentValue(e.target.value);
-              }}
-              type="text"
-              autoFocus={true}
-              value={editContentValue}
-              placeholder="댓글을 작성해주세요."
-              maxLength="32"
-            />
-          </>
-        ) : (
-          <>
+              </Button>
+            </EditButtonWrapper>
+          </ContentsIdContainer>
+          <InputValue
+            onChange={(e) => {
+              setEditContentValue(e.target.value);
+            }}
+            type="text"
+            autoFocus={true}
+            value={editContentValue}
+            placeholder="수정할 댓글을 입력해주세요."
+            maxLength="32"
+          />
+        </div>
+      ) : (
+        <div>
+          <ContentsIdContainer>
             <ContentsId>{item?.userName}</ContentsId>
-            {/*(if(authService.currentUser.uid === item.userId)*/}
             {isLoggedIn && authService.currentUser.uid === item.userId ? (
-              <IoChevronDownCircle
-                onClick={() => {
-                  setDropDown(!dropDown);
-                }}
-                size={24}
-              />
+              <IconWrapper>
+                <IoChevronDownCircle
+                  onClick={() => {
+                    setDropDown(!dropDown);
+                  }}
+                  size={24}
+                />
+              </IconWrapper>
             ) : null}
 
             {dropDown === true ? (
               <DropDownBox>
-                <IoCut
-                  size={32}
+                <BsFillPencilFill
+                  size={24}
+                  color="white"
                   onClick={() => {
                     Edit(item.id);
                   }}
                 />
-                <IoCloseCircle
-                  size={32}
+                <BsTrashFill
+                  size={24}
+                  color="white"
                   onClick={() => {
                     deleteContent(item.id);
                   }}
                 />
               </DropDownBox>
             ) : null}
-            <ContentsText>{item.text}</ContentsText>
-          </>
-        )}
-      </ContentsIdContainer>
+          </ContentsIdContainer>
+          <ContentsText>
+            <p>{item.text}</p>
+          </ContentsText>
+        </div>
+      )}
     </ContentsItem>
   );
 }
@@ -142,16 +153,44 @@ const ContentsId = styled.div`
 const ContentsText = styled.div`
   border-radius: 8px;
   background-color: #fff;
-  padding-left: 12px;
-  height: 4vh;
+  padding: 8px 12px;
+  height: auto;
   overflow-wrap: break-word;
+  font-size: 100%;
 `;
-
 const DropDownBox = styled.div`
   position: absolute;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: black;
+  border-radius: 12px;
   z-index: 300;
-  height: auto;
-  width: auto;
+  height: 72px;
+  width: 40px;
+  top: 24px;
+  right: -1vw;
 `;
-const ContentsIdContainer = styled.div``;
+const ContentsIdContainer = styled.div`
+  position: relative;
+  display: flex;
+`;
+const IconWrapper = styled.div`
+  width: 48px;
+`;
+const EditButtonWrapper = styled.div`
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+`;
+const InputValue = styled.input`
+  width: 100%;
+  height: 40px;
+  font-size: 12px;
+  border: none;
+  border-radius: 8px;
+  padding: 0px 12px;
+  :focus {
+    outline: none;
+  }
+`;

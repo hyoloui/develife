@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
+import Button from './Button';
 
 export default function AddForm({ modalPlayItem }) {
   const [contentValue, setContentValue] = useState('');
@@ -46,7 +47,9 @@ export default function AddForm({ modalPlayItem }) {
           maxLength="32"
           autoFocus={true}
         />
-        <button>등록</button>
+        <Button width="80px" height="35px">
+          등록
+        </Button>
       </InputBox>
     </FormWrapper>
   );
@@ -75,4 +78,5 @@ const FormWrapper = styled.form`
   flex-direction: row;
   justify-content: space-between;
   height: 95%;
+  margin-top: 2vh;
 `;
