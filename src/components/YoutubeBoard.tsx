@@ -7,59 +7,11 @@ import YoutubeContent from './YoutubeContent';
 import Training from './Training';
 import Programing from './Programing';
 import ItItem from './ItItem';
+import { Snippet, Item } from '../index.data';
 
 type CategoryProps = {
   category: string;
 };
-export interface Items {
-  items: [
-    {
-      id: string;
-      snippet: {
-        title: string;
-        description: string;
-        thumbnails: {
-          high: {
-            url: string;
-          };
-          maxres: {
-            url: string;
-          };
-        };
-        resourceId: {
-          videoId: string;
-        };
-      };
-    },
-  ];
-}
-export interface Item {
-  id: string;
-  snippet: {
-    title: string;
-    description: string;
-    thumbnails: {
-      high: {
-        url: string;
-      };
-    };
-    resourceId: {
-      videoId: string;
-    };
-  };
-}
-export interface Snippet {
-  title: string;
-  description: string;
-  thumbnails: {
-    high: {
-      url: string;
-    };
-  };
-  resourceId: {
-    videoId: string;
-  };
-}
 
 function YoutubeBoard({ category }: CategoryProps) {
   const { data: AllPlayList, isLoading: isLoadingAP } = useQuery('All', getAll);

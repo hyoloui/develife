@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
-import { Snippet } from '../components/YoutubeBoard';
+import { Snippet } from '../index.data';
 
 type ModalProps = {
   releaseModal?: boolean;

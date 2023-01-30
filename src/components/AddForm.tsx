@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
 import Button from './Button';
-import { Snippet } from './YoutubeBoard';
+import { Snippet } from '../index.data';
 
 type AddProps = {
   modalPlayItem: Snippet | null;
