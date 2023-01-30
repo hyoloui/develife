@@ -141,7 +141,7 @@ const Container = styled.div`
   align-items: center;
 
   .container {
-    width: 300px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
