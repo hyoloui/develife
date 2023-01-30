@@ -141,7 +141,7 @@ const Container = styled.div`
   align-items: center;
 
   .container {
-    width: 350px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -232,7 +232,7 @@ const CheckBox = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 300px;
+  width: 350px;
   height: 110px;
 
   background-color: white;
