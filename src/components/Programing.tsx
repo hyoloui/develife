@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from '../pages/Modal';
 import YoutubeContent from './YoutubeContent';
 import styled from '@emotion/styled';
-import { Snippet, Items } from './YoutubeBoard';
+import { Snippet, Items } from '../index.data';
 
 type CategoryProps = {
   ProgrammingPlayList: Items;
