@@ -1,74 +1,30 @@
-# Getting Started with Create React App
+# Develife
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> <br>개발자를 위한 웹사이트 <b>Develife</b>는 개발자의 일상생활에 필요한 유튜브 영상들을 카테고리별로 볼 수 있는 웹사이트입니다.<br> <br>
+> 개발자의 체력을 위한 <b>홈트레이닝</b>, 개발자의 지식을 위한 <b>프로그래밍</b>, 개발자의 삶의 질을 높여줄 <b>IT용품리뷰</b> 카테고리로 나누어져 있습니다. <br>
+> 일상에서 필요한 정보가 담긴 영상들에 쉽게 접하며, 영상마다 댓글을 통해서 영상에 대한 서로의 생각이나 응원, 그리고 해당 영상에 대한 정보 공유도 할 수 있도록 제작 되었습니다.<br><br>
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+## 사용된 API
 
-### `npm start`
+`YouTube Data API v3`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 사용된 기술
 
-### `npm test`
+1. React
+2. Firebase : 회원가입기능 구현과 데이터베이스 사용
+3. CSS
+4. React Query : 서버상태관리
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+## 팀원
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# develife
-
-개발자를 위한 유튜브 영상 모음 사이트
+- @yunjunhojj
+- @Kimnamgyu93
+- @park74441
+- @hyoloui
+- @hiheecho
