@@ -224,8 +224,8 @@ isLoading 변수에 각 로딩상태 || (or) 논리합 연산자를 사용 했�
 
 ## 팀원
 
-- @yunjunhojj
-- @Kimnamgyu93
-- @park74441
-- @hyoloui
-- @hiheecho
+@yunjunhojj
+@Kimnamgyu93
+@park74441
+@hyoloui
+@hiheecho
