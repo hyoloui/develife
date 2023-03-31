@@ -21,11 +21,14 @@
 5. Typescript
 
 <br>
+
 # 프로젝트 : Develife 회고
 
 ## 프로젝트 소개 
 - Developer + life 
 __개발자 맞춤 youtube collection web__ 입니다. 유튜브에서 내가 원하는 영상을 볼 수 있지만, 수 많은 영상들이 있어서 집중력이 저하될 가능성이 높고 다른 흥미위주의 영상에 많은 시간을 뺏길 수도 있습니다. 그래서 저희팀 개발&유튜브 덕후 두명이 직접 선정한 __개발자에게 도움이되는 영상__들을 모아서 보여주는 웹사이트를 만들고 배포하였습니다. 
+
+<br>
 
 ## 프로젝트 pages 
 - 메인 페이지
@@ -48,6 +51,7 @@ __개발자 맞춤 youtube collection web__ 입니다. 유튜브에서 내가 �
 - 회원가입 페이지 
 ![](https://velog.velcdn.com/images/yunjunhojj/post/1726d6d6-53ec-4ee3-b17a-3c3762486936/image.png)
 
+<br>
 
 ## 배포 링크 및 github 링크 
 - 프로젝트 배포 링크 : https://develife-yunjunhojj.vercel.app/
@@ -58,6 +62,8 @@ __개발자 맞춤 youtube collection web__ 입니다. 유튜브에서 내가 �
 - 조희현 : https://github.com/hiheecho
 - 이승효 : https://github.com/hyoloui
 - 박지수 : https://github.com/park74441
+
+<br>
 
 # 역할 및 느낀점
 - 팀장이지만, 협업에서 가장 도움이 될만한 것들, 예를들면 코드리뷰 및 문서화 작업 등에 도움이 못되서 아쉽습니다. 
@@ -72,6 +78,8 @@ __개발자 맞춤 youtube collection web__ 입니다. 유튜브에서 내가 �
 vscode의 live share를 통해, 즉각적인 피드백으로 각자의 장점을 활용한 점이 좋았습니다.
 
 - 프로젝트 중 youtube api를 사용하고, typescript로 리팩토링을 하면서 익숙하지 않았던 작업들이었기 때문에 공부도 많이 되고 재밌었던 프로젝트였습니다. 페어프로그래밍으로 작업하며, 여러 문제들을 함께 해결해 나가서 성취감도 더 올라갔던 것 같습니다.
+
+<br>
 
 # KPT 기반 회고 
 ## 1. Keep
@@ -211,6 +219,8 @@ const nowCategoryStyle: React.CSSProperties = {
 ```
 react-query를 사용한 youtube api 통신이 이루어지는데, 이때 로딩상태를 관리하고 통합으로 관리 하기 위해서
 isLoading 변수에 각 로딩상태 || (or) 논리합 연산자를 사용 했습니다. 리펙토링을 진행할 때 해당 useQuery문을 각 컴포넌트로 분리하고 싶었지만, 일방적인 props의 형태(부모 >> 자식) 때문에 리펙토링이 어려웠습니다. 이로인해 전역 상태관리 툴(redux)의 필요성을 느끼게 되었습니다.
+
+<br>
 
 ## 팀원
 
