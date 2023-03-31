@@ -16,7 +16,7 @@
 
 1. React
 2. Firebase : 회원가입기능 구현과 데이터베이스 사용
-3. CSS : styled component
+3. styled component : CCS in JS (스타일)
 4. React Query : 서버상태관리
 5. Typescript
 
